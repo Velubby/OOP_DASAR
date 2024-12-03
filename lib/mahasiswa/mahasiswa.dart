@@ -8,6 +8,7 @@ class Mahasiswa {
   int semester;
   late KRS krs;
   List<Nilai> nilai = [];
+  List<MataKuliah> mataKuliahTerisi = []; // Tambahkan daftar ini
 
   Mahasiswa({required this.nim, required this.nama, required this.semester}) {
     krs = KRS(this);
@@ -15,6 +16,7 @@ class Mahasiswa {
 
   void tambahNilai(MataKuliah mataKuliah, double nilai) {
     this.nilai.add(Nilai(mataKuliah: mataKuliah, nilai: nilai));
+    mataKuliahTerisi.add(mataKuliah); // Tambahkan mata kuliah ke daftar terisi
   }
 
   double hitungIPK() {
