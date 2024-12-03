@@ -42,27 +42,29 @@ void inputNilai(Mahasiswa mahasiswa) {
 
 void cetakKRS(Mahasiswa mahasiswa) {
   print("KRS Mahasiswa: ${mahasiswa.nama} (${mahasiswa.nim})");
-  print("-" * 30);
-  print("Kode | Nama | SKS | Status");
-  print("-" * 30);
+  print("=" * 40);
+  print(
+      "${'Kode'.padRight(10)} | ${'Nama Mata Kuliah'.padRight(20)} | ${'SKS'}");
+  print("-" * 40);
   for (var mk in mahasiswa.krs.daftarMataKuliah) {
-    // Periksa apakah nilai sudah diisi
-    bool sudahDinilai = mahasiswa.nilai.any((n) => n.mataKuliah == mk);
-    String status = sudahDinilai ? "Sudah Dinilai" : "Belum Dinilai";
-    print("${mk.kode} | ${mk.nama} | ${mk.sks} | $status");
+    print("${mk.kode.padRight(10)} | ${mk.nama.padRight(20)} | ${mk.sks}");
   }
+  print("=" * 40);
 }
 
 void cetakTranskrip(Mahasiswa mahasiswa) {
   print("Transkrip Nilai Mahasiswa: ${mahasiswa.nama} (${mahasiswa.nim})");
-  print("-" * 30);
-  print("Kode | Nama | SKS | Nilai");
-  print("-" * 30);
+  print("=" * 60);
+  print(
+      "${'Kode'.padRight(10)} | ${'Nama Mata Kuliah'.padRight(20)} | ${'SKS'.padRight(3)} | ${'Nilai'.padRight(5)}");
+  print("-" * 60);
   for (var nilai in mahasiswa.nilai) {
     print(
-        "${nilai.mataKuliah.kode} | ${nilai.mataKuliah.nama} | ${nilai.mataKuliah.sks} | ${nilai.nilai}");
+        "${nilai.mataKuliah.kode.padRight(10)} | ${nilai.mataKuliah.nama.padRight(20)} | ${nilai.mataKuliah.sks.toString().padRight(3)} | ${nilai.nilai.toStringAsFixed(2).padRight(5)}");
   }
-  print("IPK: ${mahasiswa.hitungIPK()}");
+  print("-" * 60);
+  print("IPK: ${mahasiswa.hitungIPK().toStringAsFixed(2).padLeft(50)}");
+  print("=" * 60);
 }
 
 void main() {
@@ -73,7 +75,7 @@ void main() {
   ];
 
   Mahasiswa mahasiswa1 =
-      Mahasiswa(nim: "12345678", nama: "Achmad Ichwani", semester: 3);
+      Mahasiswa(nim: "230103256", nama: "Achmad Ichwani", semester: 3);
 
   for (var mk in mataKuliahList) {
     mahasiswa1.krs.tambahMataKuliah(mk);

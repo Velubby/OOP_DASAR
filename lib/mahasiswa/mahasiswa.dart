@@ -21,14 +21,27 @@ class Mahasiswa {
 
   double hitungIPK() {
     double totalSks = 0;
-    double totalNilaiSks = 0;
+    double totalNilaiBerbobot = 0;
+
+    // Konversi nilai ke bobot
+    double konversiNilaiKeBobot(double nilai) {
+      if (nilai >= 80) return 4.0; // A
+      if (nilai >= 70) return 3.0; // B
+      if (nilai >= 55) return 2.0; // C
+      if (nilai >= 40) return 1.0; // D
+      return 0.0; // E
+    }
+
     for (var nilai in this.nilai) {
-      totalSks += nilai.mataKuliah.sks;
-      totalNilaiSks += nilai.nilai * nilai.mataKuliah.sks;
+      double bobot = konversiNilaiKeBobot(nilai.nilai); // Konversi ke bobot
+      totalSks += nilai.mataKuliah.sks; // Akumulasi SKS
+      totalNilaiBerbobot +=
+          bobot * nilai.mataKuliah.sks; // Akumulasi nilai berbobot
     }
+
     if (totalSks == 0) {
-      return 0;
+      return 0; // Hindari pembagian dengan nol
     }
-    return totalNilaiSks / totalSks;
+    return totalNilaiBerbobot / totalSks; // Rata-rata berbobot
   }
 }
